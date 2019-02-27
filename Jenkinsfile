@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps { 
                powershell('''
-			   Write-Output "test"
+			   Write-Output $env:WORKSPACE
 			   ''')
             }
         }
