@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
-                sh 'make' 
+               powershell('''
+			   Write-Output "test"
+			   ''')
             }
         }
         stage('Test'){
