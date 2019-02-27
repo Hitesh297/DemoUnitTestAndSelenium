@@ -18,7 +18,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'make publish'
+               powershell('''
+			   Write-Output "Deploy test"
+			   ''')
             }
         }
     }
