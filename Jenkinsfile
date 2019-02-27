@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Test'){
             steps {
-                sh 'make check'
+               powershell('''
+			   Write-Output "test"
+			   ''')
                
             }
         }
