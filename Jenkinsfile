@@ -23,7 +23,9 @@ pipeline {
         stage('Test'){
             steps {
 				script{
-				def testWORKSPACE = env.WORKSPACE.replaceAll("\\", "\\\\")
+				String test  = "${env.WORKSPACE}"
+				echo "${test}"
+				def testWORKSPACE = test.replaceAll("\\", "\\\\")
 				echo "${testWORKSPACE}"
 				bat "RunOpenCover.bat"
                powershell('''
