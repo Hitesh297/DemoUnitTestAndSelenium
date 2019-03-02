@@ -5,7 +5,7 @@ pipeline {
             steps { 
                powershell('''
 			   
-			   $env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
+			   $env:WorkspaceModified = $env:WORKSPACE.Replace('\\', '\\\\')
 			   
 			   Write-Output $env:WORKSPACE 
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-				echo "${env.WORKSPACE}"
+				echo "${env.WorkspaceModified}"
 				bat "RunOpenCover.bat"
                powershell('''
 			   Write-Output "test"
