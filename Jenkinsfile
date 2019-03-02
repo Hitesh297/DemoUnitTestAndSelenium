@@ -6,7 +6,7 @@ pipeline {
                powershell('''
 			   Write-Output $env:WORKSPACE 
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
-			   nuget restore $SolutionPath -source Artifactory
+			   $ 'C:\Tools\nuget.exe' restore $SolutionPath -source Artifactory
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:Configuration=release
 			   Write-Output $env:WORKSPACE
 			   ''')
