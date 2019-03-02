@@ -11,7 +11,7 @@ pipeline {
 			   Write-Output "Publish Profile Path : $PublishProfile"
 			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
-			   & "$env:WORKSPACE\\packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe"-register:user -target:$TestPath -targetargs:"$env:WORKSPACE\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""$env:WORKSPACE\\Testresult"" /logger:trx" -output:"$env:WORKSPACE\\CodeCoverage\\OpenCover.xml" -mergebyhash
+			   & "$env:WORKSPACE\\packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe"-register:user -target:"$TestPath" -targetargs:"$env:WORKSPACE\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""$env:WORKSPACE\\Testresult"" /logger:trx" -output:"$env:WORKSPACE\\CodeCoverage\\OpenCover.xml" -mergebyhash
 			   
 			   
 			   ''')
