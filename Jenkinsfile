@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps { 
                powershell('''
-			   $env:Path="C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
+			   #$env:Path="C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
 			   Write-Output $env:WORKSPACE 
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
