@@ -11,8 +11,9 @@ pipeline {
 			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\MSTest.exe' /resultsfile:Results.trx" /testcontainer:"%WORKSPACE%\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll"
-			   step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
+			   
 			   ''')
+			   step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
             }
         }
         stage('Test'){
