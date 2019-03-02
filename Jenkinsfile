@@ -26,8 +26,8 @@ pipeline {
 					try{
 				String test  = "${env.WORKSPACE}"
 				echo "${test}"
-				def testWORKSPACE = test.replaceAll("\\\\", "\\\\\\\\")
-				echo "${testWORKSPACE}"
+				env.WORKSPACEESCAPED = test.replaceAll("\\\\", "\\\\\\\\")
+				echo "${WORKSPACEESCAPED}"
 				bat "RunOpenCover.bat"
                powershell('''
 			   Write-Output "test"
