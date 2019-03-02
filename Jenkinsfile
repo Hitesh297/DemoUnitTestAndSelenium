@@ -15,13 +15,12 @@ pipeline {
 			   
 			   #powershell -command & "$env:WORKSPACE\\packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe" -register:user "-target:C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"$env:WORKSPACE\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""$env:WORKSPACE\\Testresult"" /logger:trx" -output:"$env:WORKSPACE\\CodeCoverage\\OpenCover.xml" -mergebyhash
 			   #step([$class: 'MSTestPublisher', testResultsFile:"Testresult/*.trx", failOnError: true, keepLongStdio: true])
+			   sh '& "$env:WORKSPACE\\packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe" -register:user "-target:C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"$env:WORKSPACE\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""$env:WORKSPACE\\Testresult"" /logger:trx" -output:"$env:WORKSPACE\\CodeCoverage\\OpenCover.xml" -mergebyhash'
             }
         }
         stage('Test'){
             steps {
 				
-				def psCommand = "powershell.exe & "$env:WORKSPACE\\packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe" -register:user "-target:C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"$env:WORKSPACE\\UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""$env:WORKSPACE\\Testresult"" /logger:trx" -output:"$env:WORKSPACE\\CodeCoverage\\OpenCover.xml" -mergebyhash"
-				bat psCommand
 				
                powershell('''
 			   Write-Output "test"
