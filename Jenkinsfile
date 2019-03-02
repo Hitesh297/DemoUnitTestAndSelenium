@@ -4,8 +4,9 @@ pipeline {
         stage('Build') { 
             steps { 
                powershell('''
+			   Write-Output $env:WORKSPACE
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
-			   C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe $SolutionPath /p:Configuration=release
+			   C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe $SolutionPath /p:Configuration=release
 			   Write-Output $env:WORKSPACE
 			   ''')
             }
