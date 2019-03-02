@@ -69,6 +69,10 @@
       <Project>{2ECA2FCF-18E2-4691-8EBD-62EF704D6876}</Project>
       <Name>Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Calculate\Calculate.csproj">
+      <Project>{2ea9d8ac-1a9b-405b-a973-a12602141aef}</Project>
+      <Name>Calculate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
