@@ -21,7 +21,7 @@ pipeline {
         stage('Test'){
             steps {
 				
-				bat "powershell.exe RunOpenCover.ps1"
+				bat "powershell.exe %WORKSPACE%\\RunOpenCover.ps1"
                powershell('''
 			   Write-Output "test"
 			   ''')
