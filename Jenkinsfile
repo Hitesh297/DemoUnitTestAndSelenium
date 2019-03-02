@@ -13,11 +13,12 @@ pipeline {
 			   Write-Output "Publish Profile Path : $PublishProfile"
 			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
-			   & 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:user -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""result/"" /logger:trx" -output:"CodeCoverage\\OpenCover.xml" -filter:"+[Calculate]*"
+			   & 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:user -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll /ResultsDirectory:""result/"" /logger:trx" -output:"CodeCoverage\\OpenCover.xml" -filter:"+[Business]*"
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
 			   
 			   ''')
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
+			   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "CodeCoverage", reportFiles: 'index.htm', reportName: "CodeCoverage"])
             }
         }
         stage('Test'){
