@@ -17,19 +17,13 @@ pipeline {
 			   
 			   
 			   ''')
-			   //step([$class: 'MSTestPublisher', testResultsFile:"Testresult/*.trx", failOnError: true, keepLongStdio: true])
+			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
             }
         }
         stage('Test'){
             steps {
 				script{
 					try{
-				String test  = "${env.WORKSPACE}"
-				echo "${test}"
-				//env.WORKSPACEESCAPED = test.replaceAll("\\\\", "\\\\\\\\")
-				env.WORKSPACEESCAPED  = env.WORKSPACE
-				echo "${WORKSPACEESCAPED}"
-				bat "RunOpenCover.bat"
                powershell('''
 			   Write-Output "test"
 			   ''')
