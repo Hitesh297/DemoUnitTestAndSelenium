@@ -23,8 +23,8 @@ pipeline {
         stage('Test'){
             steps {
 				
-				env.WORKSPACE = env.WORKSPACE.replaceAll("\\", "\\\\")
-				echo "${env.WORKSPACE}"
+				def testWORKSPACE = env.WORKSPACE.replaceAll("\\", "\\\\")
+				echo "${testWORKSPACE}"
 				bat "RunOpenCover.bat"
                powershell('''
 			   Write-Output "test"
