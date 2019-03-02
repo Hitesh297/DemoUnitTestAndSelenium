@@ -23,6 +23,7 @@ pipeline {
         stage('Test'){
             steps {
 				script{
+					try{
 				String test  = "${env.WORKSPACE}"
 				echo "${test}"
 				def testWORKSPACE = test.replaceAll("\\", "\\\\")
@@ -31,6 +32,12 @@ pipeline {
                powershell('''
 			   Write-Output "test"
 			   ''')
+				}
+				catch(err)
+				{
+					throw err
+				}
+			
 				}
                
             }
