@@ -6,6 +6,7 @@ pipeline {
                powershell('''
 			   
 			   $env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
+			   
 			   Write-Output $env:WORKSPACE 
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
@@ -22,6 +23,7 @@ pipeline {
         }
         stage('Test'){
             steps {
+				echo "${env.WORKSPACE}"
 				bat "RunOpenCover.bat"
                powershell('''
 			   Write-Output "test"
