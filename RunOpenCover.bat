@@ -3,4 +3,5 @@ set nunitpath_quotes="%nunitpath%"
 set WORKSPACEPATH = "%WORKSPACEESCAPED%"
 
 
+
 packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:%nunitpath_quotes% "-targetargs:UnitTestProject1\bin\Release\UnitTestProject1.dll /ResultsDirectory:""Testresult"" /logger:trx" -output:CodeCoverage\OpenCover.xml -mergebyhash
