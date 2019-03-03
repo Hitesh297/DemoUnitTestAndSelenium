@@ -13,6 +13,7 @@ namespace Calculate.Controllers
         // GET: Test
         public ActionResult Index()
         {
+
             return View();
         }
 
