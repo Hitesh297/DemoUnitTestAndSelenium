@@ -42,8 +42,9 @@ pipeline {
             steps {
                powershell('''
 			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
+			   $Comments = git log -4 --pretty=format:'%s'
 			   $params = @{"CommitVersion"=$CommitVersion;
-						"Comments"="xxx@gmail.com";
+						"Comments"=$Comments;
 						"Server"="yyy";
 						}
 
