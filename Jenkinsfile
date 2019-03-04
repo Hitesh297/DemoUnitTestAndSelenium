@@ -47,10 +47,12 @@ pipeline {
 						"Comments"=$Comments;
 						"Server"="yyy";
 						}
+				
+				Write-Output $params
 
-				Invoke-WebRequest -Uri http://localhost/TrackerService/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
-
-			   Write-Output "Deploy test"
+				$Response = Invoke-WebRequest -Uri http://localhost/BuildTrackerAPI/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
+				Write-Output $Response
+				Write-Output "Deploy test"
 			
 			   ''')
             }
