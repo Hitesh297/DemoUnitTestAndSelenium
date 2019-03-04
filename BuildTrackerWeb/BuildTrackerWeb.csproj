@@ -107,11 +107,12 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include=".babelrc" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <None Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Home\index.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
