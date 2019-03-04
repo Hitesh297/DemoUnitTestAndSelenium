@@ -50,7 +50,7 @@ pipeline {
 						"Server"="yyy";
 						}
 				
-				Write-Output $params
+				Write-Output $params|ConvertTo-Json
 
 				$Response = Invoke-WebRequest -Uri http://localhost/BuildTrackerAPI/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
 				Write-Output $Response
