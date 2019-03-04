@@ -47,7 +47,7 @@ pipeline {
 			   Write-Output $Comments
 			   
 			   $params = @{"CommitVersion"=$CommitVersion;
-						"Comments"=$Comments;
+						"Comments"="$Comments";
 						"Server"="yyy";
 						}
 				
