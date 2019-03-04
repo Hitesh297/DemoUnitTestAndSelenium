@@ -50,6 +50,15 @@ pipeline {
 				Invoke-WebRequest -Uri http://localhost/BuildTrackerAPI/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
 
 			   Write-Output "Deploy test"
+			   
+			   $CommitVersion = '''+env.GIT_COMMIT+'''
+			   
+			   $params = @{"CommitVersion"=$CommitVersion;
+						"Comments"="xxx@gmail.com";
+						"Server"="Delhi";
+						}
+
+				Invoke-WebRequest -Uri http://localhost/BuildTrackerAPI/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
 			   ''')
             }
         }
