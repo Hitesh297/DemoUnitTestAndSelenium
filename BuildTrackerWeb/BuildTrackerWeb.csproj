@@ -93,16 +93,20 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="dist\bundle.js" />
-    <Content Include="dist\index.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bundle.js" />
+    <Content Include="src\actions\index.js" />
+    <Content Include="src\Containers\BuildDisplay.js" />
     <Content Include="src\index.js" />
-    <Content Include="Views\Home\bundle.js" />
+    <Content Include="src\reducers\index.js" />
+    <Content Include="src\reducers\reducer_builds.js" />
     <Content Include="webpack.config.js" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include=".babelrc" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -135,8 +139,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="dist\" />
     <Folder Include="Models\" />
-    <Folder Include="src\Components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
