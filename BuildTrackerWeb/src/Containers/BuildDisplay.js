@@ -23,7 +23,8 @@ class BuildDisplay extends Component {
         },
             {
                 Header: 'Comments',
-                accessor: 'Comments' // String-based value accessors!
+                accessor: 'Comments',
+                style: { 'whiteSpace': 'unset' }
             },
             {
                 Header: 'DeployedOn',
