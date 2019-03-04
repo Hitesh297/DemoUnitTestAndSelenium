@@ -1,6 +1,6 @@
 ﻿import axios from 'axios';
 
-const ROOT_URL = 'http://localhost/BuildTrackerAPI/api/Deployment';
+const ROOT_URL = 'http://localhost/TrackerService/api/Deployment';
 
 export const FETCH_BUILDS = 'FETCH_BUILDS';
 
