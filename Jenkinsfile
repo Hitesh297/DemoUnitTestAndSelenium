@@ -46,8 +46,8 @@ pipeline {
 			   foreach ( $item in $Comments ) { $stringComments = "$stringComments,$item" }
 			   Write-Output $stringComments
 			   
-			   $params = @{"CommitVersion"=$stringComments;
-						"Comments"=$Comments;
+			   $params = @{"CommitVersion"=$CommitVersion;
+						"Comments"=$stringComments;
 						"Server"="yyy";
 						}
 				
