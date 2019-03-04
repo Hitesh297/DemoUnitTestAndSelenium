@@ -41,6 +41,14 @@ pipeline {
         stage('Deploy') {
             steps {
                powershell('''
+			   $CommitVersion = '''+env.GIT_COMMIT+'''
+			   $params = @{"CommitVersion"=$CommitVersion;
+						"Comments"="xxx@gmail.com";
+						"Server"="yyy";
+						}
+
+				Invoke-WebRequest -Uri http://localhost/BuildTrackerAPI/api/Deployment -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
+
 			   Write-Output "Deploy test"
 			   ''')
             }
