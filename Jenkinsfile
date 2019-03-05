@@ -8,8 +8,13 @@ pipeline {
 			  
 				$env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 				Write-Output $env:WORKSPACE 
-				
+				try{
 				Remove-Item –path C:\\Tools\\result –recurse
+				}
+				catch(err)
+				{
+				throw err
+				}
 				
 				
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
