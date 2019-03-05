@@ -18,6 +18,15 @@ namespace UnitTestProject1
             Assert.AreEqual("value", result);
         }
 
+        [TestCategory("A-1234")]
+        [TestMethod]
+        public void FailThisTestTest1()
+        {
+
+            string result = deploymentController.Get(12);
+            Assert.AreEqual("valu", result);
+        }
+
         [TestCategory("B-1234")]
         [TestMethod]
         public void BuildTrackerTest2()
