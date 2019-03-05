@@ -3,11 +3,14 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
+			script{
+			
+				sh 'Remove-Item –path "$env:WORKSPACE\\result" –recurse'
                powershell('''
 			  
 			   $env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 			   Write-Output $env:WORKSPACE 
-			    Remove-Item –path "\\result" –recurse
+			    
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
 			   Write-Output "Solution Path: $SolutionPath"
@@ -20,6 +23,7 @@ pipeline {
 			   ''')
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
 			   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "CodeCoverage", reportFiles: 'index.htm', reportName: "CodeCoverage"])
+			   }
             }
         }
         stage('Test'){
