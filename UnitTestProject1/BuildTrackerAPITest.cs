@@ -7,12 +7,22 @@ namespace UnitTestProject1
     [TestClass]
     public class BuildTrackerAPITest
     {
+        DeploymentController deploymentController = new DeploymentController();
+
+        [TestCategory("A-1234")]
         [TestMethod]
-        public void TestMethod1()
+        public void BuildTrackerTest1()
         {
-            DeploymentController deploymentController = new DeploymentController();
+            
             string result = deploymentController.Get(12);
             Assert.AreEqual("value", result);
+        }
+
+        [TestMethod]
+        public void BuildTrackerTest2()
+        {
+
+            deploymentController.Put(12,"string");
         }
     }
 }
