@@ -10,7 +10,7 @@ pipeline {
 				Write-Output $env:WORKSPACE 
 				$Comments = (git log -4 --pretty=format:'%s') 
 				foreach ( $item in $Comments ) {
-				$storyID = [Regex]::Matches($item, '(?<=\[)(.*?)(?=\])') | Select -ExpandProperty Value
+				$storyID = [Regex]::Matches($item, '(?<=\\[)(.*?)(?=\\])') | Select -ExpandProperty Value
 				$filterCriteria = "$filterCriteria|TestCategory=$storyID"
 				}
 				
