@@ -35,7 +35,9 @@ pipeline {
 				
 				foreach ( $item in $Comments ) {
 					$storyID = [Regex]::Matches($item, '(?<=\\[)(.*?)(?=\\])') | Select -ExpandProperty Value
+					if($storyID){
 					$filterCriteria = "$filterCriteria|TestCategory=$storyID"
+					}
 				}
 				
 				if ($filterCriteria)
