@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps { 
                powershell('''
-			   Remove-Item –path result –recurse
+			   Remove-Item –path $env:WORKSPACE\\result –recurse
 			   $env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 			   Write-Output $env:WORKSPACE 
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
