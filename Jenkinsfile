@@ -4,18 +4,13 @@ pipeline {
         stage('Build') { 
             steps { 
 			script{
+			try{
                powershell('''
 			  
 				$env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 				Write-Output $env:WORKSPACE 
-				try{
-				Remove-Item –path C:\\Tools\\result –recurse
-				}
-				catch(Exception err)
-				{
-				throw err
-				}
 				
+				Remove-Item –path C:\\Tools\\result –recurse
 				
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
@@ -27,6 +22,11 @@ pipeline {
 			   
 			   
 			   ''')
+			   }
+			   catch(Exception err)
+			   {
+			   throw err
+			   }
 			   
 			   }
             }
