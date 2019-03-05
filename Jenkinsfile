@@ -14,7 +14,16 @@ pipeline {
 				$filterCriteria = "$filterCriteria|TestCategory=$storyID"
 				}
 				
-				if (!$filterCriteria)
+				
+				
+			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
+			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
+			   Write-Output "Solution Path: $SolutionPath"
+			   Write-Output "Publish Profile Path : $PublishProfile"
+			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
+			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
+			   
+			   if ($filterCriteria)
 				{
 				$filterCriteria = $filterCriteria.TrimStart("|")
 				& 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:Path32 -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll  --testcasefilter:"$filterCriteria" /ResultsDirectory:result /logger:trx" -output:"CodeCoverage\\OpenCover.xml" 
@@ -25,13 +34,6 @@ pipeline {
 				& 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:Path32 -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll  /ResultsDirectory:result /logger:trx" -output:"CodeCoverage\\OpenCover.xml" 
 				}
 				
-			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
-			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
-			   Write-Output "Solution Path: $SolutionPath"
-			   Write-Output "Publish Profile Path : $PublishProfile"
-			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
-			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
-			   
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
 			   
 			   ''')
