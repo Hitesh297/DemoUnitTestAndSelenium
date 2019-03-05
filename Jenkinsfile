@@ -7,7 +7,7 @@ pipeline {
 			  
 			   $env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 			   Write-Output $env:WORKSPACE 
-			    Remove-Item –path $env:WORKSPACE\\result –recurse
+			    Remove-Item –path "$env:WORKSPACE\\result" –recurse
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
 			   Write-Output "Solution Path: $SolutionPath"
