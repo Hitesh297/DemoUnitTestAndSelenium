@@ -11,7 +11,7 @@ pipeline {
 				try{
 				Remove-Item –path C:\\Tools\\result –recurse
 				}
-				catch(err)
+				catch(Exception err)
 				{
 				throw err
 				}
