@@ -18,6 +18,7 @@ namespace UnitTestProject1
             Assert.AreEqual("value", result);
         }
 
+        [TestCategory("B-1234")]
         [TestMethod]
         public void BuildTrackerTest2()
         {
