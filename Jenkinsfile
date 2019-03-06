@@ -53,11 +53,11 @@ pipeline {
 					}
 					else
 					{
-					Write-Output "$item not a valid story id"
+					echo "$item not a valid story id"
 					}
 				}
 				
-				Write-Output "Stories tested : $env:StorysTested"
+				echo "Stories tested : $env:StorysTested"
 				
 				if ($filterCriteria)
 				{
@@ -66,7 +66,7 @@ pipeline {
 				}
 				else
 				{
-					Write-Output "No Story ID found in the commits"
+					echo "No Story ID found in the commits"
 					& 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:Path32 -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll  /ResultsDirectory:result /logger:trx" -output:"CodeCoverage\\OpenCover.xml" 
 				}
 				
