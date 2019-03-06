@@ -1,5 +1,5 @@
 pipeline { 
-    agent { label "for-branch-master" }
+    agent { label "master" }
     stages {
         stage('Build') { 
             steps { 
