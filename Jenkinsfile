@@ -92,6 +92,7 @@ pipeline {
 			   $params = @{"CommitVersion"=$CommitVersion;
 						"Comments"=$stringComments;
 						"Server"="yyy";
+						"StoriesIncluded" = $env:StorysTested
 						}
 				
 				Write-Output $params|ConvertTo-Json
