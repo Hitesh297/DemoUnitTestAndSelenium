@@ -36,9 +36,9 @@ pipeline {
         stage('Test'){
             steps {
 				script{
-				env.StorysTested = ''
+				
 					try{
-               powershell('''
+               def storyList = powershell(returnStdout: true,script:'''
 			   $Comments = (git log -4 --pretty=format:'%s') 
 				
 				foreach ( $item in $Comments ) {
@@ -71,8 +71,11 @@ pipeline {
 				}
 				
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
+			   
+			   return $env:StorysTested
 			   ''')
 			   
+			   env.StorysTested = storyList.trim()
 			   echo "From Grrovy : ${env.StorysTested}"
 			   
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
