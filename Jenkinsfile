@@ -48,6 +48,7 @@ pipeline {
 				
 					if($IsNumber){
 					$filterCriteria = "$filterCriteria|TestCategory=$storyID"
+					$env:StorysTested = "$env:StorysTested | $storyID"
 					}
 					else
 					{
@@ -91,6 +92,7 @@ pipeline {
 			   $params = @{"CommitVersion"=$CommitVersion;
 						"Comments"=$stringComments;
 						"Server"="yyy";
+						"StoriesIncluded" = $env:StorysTested
 						}
 				
 				Write-Output $params|ConvertTo-Json
