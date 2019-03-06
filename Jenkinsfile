@@ -43,8 +43,10 @@ pipeline {
 				foreach ( $item in $Comments ) {
 					$storyID = $item.Split('/')[-1]
 					
-					$storyNumber = storyID.Split('-')[0]
-					if([System.Int32]::TryParse($storyNumber, [ref]0)){
+					$storyNumber = $storyID.Split('-')[1]
+					$IsNumber = [System.Int32]::TryParse($storyNumber, [ref]0)
+				
+					if($IsNumber){
 					$filterCriteria = "$filterCriteria|TestCategory=$storyID"
 					}
 					else
