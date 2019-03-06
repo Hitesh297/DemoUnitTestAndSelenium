@@ -33,6 +33,10 @@ class BuildDisplay extends Component {
             {
                 Header: 'Server',
                 accessor: 'Server' // String-based value accessors!
+            },
+            {
+                Header: 'StoriesIncluded',
+                accessor: 'StoriesIncluded' // String-based value accessors!
             }]
         console.log("test",this.props.builds);
         return (

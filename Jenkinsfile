@@ -48,6 +48,7 @@ pipeline {
 				
 					if($IsNumber){
 					$filterCriteria = "$filterCriteria|TestCategory=$storyID"
+					$env:StorysTested = "$env:StorysTested | $storyID"
 					}
 					else
 					{
