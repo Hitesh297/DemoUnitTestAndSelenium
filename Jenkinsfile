@@ -1,5 +1,5 @@
 pipeline { 
-    agent any 
+    agent { label "for-branch-master" }
     stages {
         stage('Build') { 
             steps { 
@@ -36,9 +36,9 @@ pipeline {
         stage('Test'){
             steps {
 				script{
-				
+				env.StorysTested = ''
 					try{
-               def storyList = powershell(returnStdout: true,script:'''
+               powershell('''
 			   $Comments = (git log -4 --pretty=format:'%s') 
 				
 				foreach ( $item in $Comments ) {
@@ -53,11 +53,11 @@ pipeline {
 					}
 					else
 					{
-					echo "$item not a valid story id"
+					Write-Output "$item not a valid story id"
 					}
 				}
 				
-				echo "Stories tested : $env:StorysTested"
+				Write-Output "Stories tested : $env:StorysTested"
 				
 				if ($filterCriteria)
 				{
@@ -66,17 +66,14 @@ pipeline {
 				}
 				else
 				{
-					echo "No Story ID found in the commits"
+					Write-Output "No Story ID found in the commits"
 					& 'packages\\OpenCover.4.7.922\\tools\\OpenCover.Console.exe' -register:Path32 -target:"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" -targetargs:"UnitTestProject1\\bin\\Release\\UnitTestProject1.dll  /ResultsDirectory:result /logger:trx" -output:"CodeCoverage\\OpenCover.xml" 
 				}
 				
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
-			   
-			   return $env:StorysTested
 			   ''')
 			   
-			   env.StorysTested = storyList.trim()
-			   echo "From Grrovy : ${env.StorysTested}"
+			   echo " From Grrovy : ${env.StorysTested}"
 			   
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
 			   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "CodeCoverage", reportFiles: 'index.htm', reportName: "CodeCoverage"])
