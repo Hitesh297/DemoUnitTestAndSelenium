@@ -41,7 +41,7 @@ pipeline {
 			   $Comments = (git log -4 --pretty=format:'%s') 
 				
 				foreach ( $item in $Comments ) {
-					$storyID = [Regex]::Matches($item, '(?<=\\[)(.*?)(?=\\])') | Select -ExpandProperty Value
+					$storyID = $item.Split('/')[-1]
 					if($storyID){
 					$filterCriteria = "$filterCriteria|TestCategory=$storyID"
 					}
