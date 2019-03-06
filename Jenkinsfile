@@ -72,6 +72,9 @@ pipeline {
 				
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
 			   ''')
+			   
+			   echo "From Grrovy : ${env.StorysTested}"
+			   
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
 			   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "CodeCoverage", reportFiles: 'index.htm', reportName: "CodeCoverage"])
 				}
@@ -96,7 +99,7 @@ pipeline {
 			   $params = @{"CommitVersion"=$CommitVersion;
 						"Comments"=$stringComments;
 						"Server"="yyy";
-						"StoriesIncluded" = $env:StorysTested
+						"StoriesIncluded" = $env:StorysTested;
 						}
 				
 				Write-Output $params|ConvertTo-Json
