@@ -56,6 +56,8 @@ pipeline {
 					}
 				}
 				
+				Write-Output "Stories tested : $env:StorysTested"
+				
 				if ($filterCriteria)
 				{
 					$filterCriteria = $filterCriteria.TrimStart("|")
