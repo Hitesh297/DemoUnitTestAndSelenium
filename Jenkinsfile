@@ -88,6 +88,7 @@ pipeline {
 			   $Comments = (git log -4 --pretty=format:'%s')
 			   foreach ( $item in $Comments ) { $stringComments = "$stringComments,$item" }
 			   Write-Output $stringComments
+			   Write-Output $env:StorysTested
 			   
 			   $params = @{"CommitVersion"=$CommitVersion;
 						"Comments"=$stringComments;
