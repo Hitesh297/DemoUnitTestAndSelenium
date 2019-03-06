@@ -36,6 +36,7 @@ pipeline {
         stage('Test'){
             steps {
 				script{
+				env.StorysTested = ''
 					try{
                powershell('''
 			   $Comments = (git log -4 --pretty=format:'%s') 
