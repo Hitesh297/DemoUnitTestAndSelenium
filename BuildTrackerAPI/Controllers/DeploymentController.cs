@@ -26,6 +26,22 @@ namespace BuildTrackerAPI.Controllers
             
         }
 
+        [HttpGet,Route("GetPreviousDeployCommit")]
+        public HttpResponseMessage GetPreviousDeployCommit()
+        {
+
+            if (!File.Exists(_FilePath))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File Not Found at " + _FilePath);
+            }
+            string initialJson = File.ReadAllText(_FilePath);
+            List<BuildInfo> buildInfos = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
+            BuildInfo lastDeploy = buildInfos.OrderBy(x => Convert.ToDateTime(x.DeployedOn)).ToList().Last();
+            return Request.CreateResponse(lastDeploy.CommitVersion);
+
+
+        }
+
         // GET: api/Deployment/5
         public string Get(int id)
         {
