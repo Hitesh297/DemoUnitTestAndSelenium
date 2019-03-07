@@ -40,9 +40,11 @@ pipeline {
 					try{
                powershell('''
 			   $Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
-			   $PreviousDeployCommit = $Response.Content
-			   $CurrentCommit = $env:GIT_COMMIT
+			   $PreviousDeployCommit = "$Response.Content"
+			   $CurrentCommit = "$env:GIT_COMMIT"
 			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$CurrentCommit) 
+				
+				Write-Output "Comments : $Comments"
 				
 				foreach ( $item in $Comments ) {
 					$storyID = $item.Split('/')[-1]
