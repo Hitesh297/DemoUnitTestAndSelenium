@@ -9,10 +9,12 @@ pipeline {
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			   $PreviousDeployCommit = $Response.Content
 			   $CurrentCommit = "`"$env:GIT_COMMIT`""
+			   Write-Output $PreviousDeployCommit
+				Write-Output $CurrentCommit
+				Write-Output (git log $PreviousDeployCommit...$env:GIT_COMMIT)
 			   Write-Output (git log --pretty=format:'%s' $PreviousDeployCommit...$env:GIT_COMMIT)
 			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$env:GIT_COMMIT) 
-				Write-Output $PreviousDeployCommit
-				Write-Output $CurrentCommit
+				
 				Write-Output "Comments : $Comments"
 				
 				
