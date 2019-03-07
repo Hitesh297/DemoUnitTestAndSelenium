@@ -26,7 +26,7 @@ pipeline {
 			   $CurrentCommit = "`"$env:GIT_COMMIT`""
 			   Write-Output $PreviousDeployCommit
 				Write-Output $CurrentCommit
-				Write-Output (git log $PreviousDeployCommit...$CurrentCommit)
+				Write-Output (git log -4)
 			   Write-Output (git log --pretty=format:'%s' $PreviousDeployCommit...$CurrentCommit)
 			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$env:GIT_COMMIT) 
 				
