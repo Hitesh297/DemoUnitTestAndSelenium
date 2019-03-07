@@ -40,7 +40,7 @@ pipeline {
 					try{
                powershell('''
 			   $Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
-			   $PreviousDeployCommit = $Response.Content.Replace("`"","")
+			   $PreviousDeployCommit = $Response.Content
 			   $CurrentCommit = "$env:GIT_COMMIT"
 			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$CurrentCommit) 
 				Write-Output $PreviousDeployCommit
