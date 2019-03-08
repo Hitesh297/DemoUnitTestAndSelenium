@@ -7,7 +7,7 @@ pipeline {
 			
 			try{
 			
-			def html = ""http://localhost/TrackerService/GetPreviousDeployCommit"".toURL().text
+			def html = "http://localhost/TrackerService/GetPreviousDeployCommit".toURL().text
 			echo "${html}"
 			
 			
