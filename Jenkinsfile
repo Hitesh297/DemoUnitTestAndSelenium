@@ -7,13 +7,9 @@ pipeline {
 			
 			try{
 			
-			def get = new URL("http://localhost/TrackerService/GetPreviousDeployCommit").openConnection();
-			def getRC = get.getResponseCode();
-			println(getRC);
-			if(getRC.equals(200)) {
-			println(get.getInputStream().getText());
-			}
 			
+			  def test = powershell(returnStdout: true, script: '(git log -4)');
+			  echo ("${test}")
 			
                powershell('''
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
