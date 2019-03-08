@@ -1,13 +1,8 @@
-#!groovy
-
-windowsNode = 'master'
-
 pipeline { 
-    agent any
+    agent { label "master" }
     stages {
         stage('Build') { 
-            steps {
-			node(windowsNode) {			
+            steps { 
 			script{
 			
 			try{
@@ -39,11 +34,9 @@ pipeline {
 			   
 			   }
             }
-			}
         }
         stage('Test'){
             steps {
-			 node(windowsNode) {
 				script{
 				env.StorysTested = ''
 					try{
@@ -101,12 +94,9 @@ pipeline {
 				}
                
             }
-		}
         }
         stage('Deploy') {
             steps {
-			 node(windowsNode) {
-				script {
                powershell('''
 			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
 			   $Comments = (git log -4 --pretty=format:'%s')
@@ -127,9 +117,7 @@ pipeline {
 				Write-Output "Deploy test"
 			
 			   ''')
-			   }
             }
-			}
         }
     }
 }
