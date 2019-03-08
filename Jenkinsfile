@@ -7,7 +7,7 @@ pipeline {
 			
 			try{
 			
-				def prevCommit = powershell(returnStdout: true, script: 'Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit');
+				def prevCommit = powershell(returnStdout: true, script: 'Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"');
 				
 				echo "${prevCommit}"
 				echo "${prevCommit.Content}"
