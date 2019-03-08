@@ -16,7 +16,7 @@ pipeline {
 				
 				echo $env:GIT_COMMIT
 				
-				
+				echo $current
 				
 				 Write-Output (git log $PreviousDeployCommit...$current)
 				
