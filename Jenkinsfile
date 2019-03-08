@@ -3,10 +3,11 @@
 windowsNode = 'master'
 
 pipeline { 
-    agent none
+    agent any
     stages {
         stage('Build') { 
-            steps { 
+            steps {
+			node(windowsNode) {			
 			script{
 			
 			try{
@@ -38,6 +39,7 @@ pipeline {
 			   
 			   }
             }
+			}
         }
         stage('Test'){
             steps {
