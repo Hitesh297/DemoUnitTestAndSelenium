@@ -12,7 +12,7 @@ pipeline {
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			   $PreviousDeployCommit = $Response.Content
 				
-				 Write-Output (git log $PreviousDeployCommit...9b0d3111f560f5bf0541627d9c68f0589f8bb640)
+				 Write-Output (git log $PreviousDeployCommit...$env:GIT_COMMIT)
 				
 				
 				
