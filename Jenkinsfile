@@ -7,8 +7,12 @@ pipeline {
 			
 			try{
 			
-			def html = "http://localhost/TrackerService/GetPreviousDeployCommit".toURL().text
-			echo "${html}"
+			def get = new URL("http://localhost/TrackerService/GetPreviousDeployCommit").openConnection();
+			def getRC = get.getResponseCode();
+			println(getRC);
+			if(getRC.equals(200)) {
+			println(get.getInputStream().getText());
+			}
 			
 			
                powershell('''
