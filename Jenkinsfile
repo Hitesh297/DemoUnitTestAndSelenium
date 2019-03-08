@@ -9,21 +9,6 @@ pipeline {
 			
 				
                powershell('''
-				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
-			   $PreviousDeployCommit = $Response.Content
-			  
-			   $ComString = "$PreviousDeployCommit...$env:GIT_COMMIT"
-				echo $PreviousDeployCommit
-				
-				echo $ComString
-				
-				
-				
-				 Write-Output (git log $ComString)
-				
-				
-				
-				
 				
 				$env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
 				Write-Output $env:WORKSPACE 
@@ -38,7 +23,6 @@ pipeline {
 			   Write-Output "Publish Profile Path : $PublishProfile"
 			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
-			   
 			   
 			   
 			   ''')
@@ -59,8 +43,8 @@ pipeline {
                powershell('''
 			   $Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			   $PreviousDeployCommit = $Response.Content
-			   $CurrentCommit = "`"$env:GIT_COMMIT`""
-			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$CurrentCommit) 
+			   $ComString = "$PreviousDeployCommit...$env:GIT_COMMIT"
+			   $Comments = (git log --pretty=format:'%s' $ComString) 
 				Write-Output $PreviousDeployCommit
 				Write-Output $CurrentCommit
 				Write-Output "Comments : $Comments"
