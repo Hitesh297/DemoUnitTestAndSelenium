@@ -14,6 +14,7 @@ pipeline {
 			   $Current = [System.Environment]::ExpandEnvironmentVariables("$env:GIT_COMMIT") 
 				echo $PreviousDeployCommit
 				echo $env:GIT_COMMIT
+				echo $Current
 				 Write-Output (git log $PreviousDeployCommit...$Current)
 				
 				
