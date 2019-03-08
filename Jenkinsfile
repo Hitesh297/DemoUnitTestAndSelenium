@@ -7,18 +7,18 @@ pipeline {
 			
 			try{
 			
-				def commit = "${env.GIT_COMMIT}".toString()
+				
                powershell('''
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			   $PreviousDeployCommit = $Response.Content
-			   $current = "'''+commit+'''"
+			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
 				echo $PreviousDeployCommit
 				
 				echo $env:GIT_COMMIT
 				
-				echo $current
+				echo $CommitVersion
 				
-				 Write-Output (git log $PreviousDeployCommit...$current)
+				 Write-Output (git log $PreviousDeployCommit...$CommitVersion)
 				
 				
 				
