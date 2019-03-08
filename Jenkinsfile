@@ -4,9 +4,16 @@ pipeline {
         stage('Build') { 
             steps { 
 			script{
+			
 			try{
+			
+			def html = ""http://localhost/TrackerService/GetPreviousDeployCommit"".toURL().text
+			echo "${html}"
+			
+			
                powershell('''
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
+				
 				
 				$counter = 0
 				do{
