@@ -11,14 +11,15 @@ pipeline {
                powershell('''
 				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			   $PreviousDeployCommit = $Response.Content
-			   $CommitVersion = "`"'''+env.GIT_COMMIT+'''`""
+			  
+			   $ComString = "$PreviousDeployCommit...$env:GIT_COMMIT"
 				echo $PreviousDeployCommit
 				
-				echo $env:GIT_COMMIT
+				echo $ComString
 				
-				echo $CommitVersion
 				
-				 Write-Output (git log $PreviousDeployCommit...$CommitVersion)
+				
+				 Write-Output (git log $ComString)
 				
 				
 				
