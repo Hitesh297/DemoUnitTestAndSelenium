@@ -2,8 +2,6 @@ pipeline {
     agent { label "master" }
     stages {
         stage('Build') { 
-		agent { label "master" }
-		options { skipDefaultCheckout() }
             steps { 
 			script{
 			
@@ -38,8 +36,6 @@ pipeline {
             }
         }
         stage('Test'){
-		agent { label "master" }
-		options { skipDefaultCheckout() }
             steps {
 				script{
 				env.StorysTested = ''
@@ -100,8 +96,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-		agent { label "master" }
-		options { skipDefaultCheckout() }
             steps {
                powershell('''
 			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
