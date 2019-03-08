@@ -47,8 +47,8 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -71,7 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -84,10 +86,6 @@
     <ProjectReference Include="..\BuildTrackerAPI\BuildTrackerAPI.csproj">
       <Project>{92eda8f7-3e29-4052-8594-2b5a4840487a}</Project>
       <Name>BuildTrackerAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BuildTrackerWeb\BuildTrackerWeb.csproj">
-      <Project>{6d9bd8dd-fde5-4969-8ab4-1d86eed47d80}</Project>
-      <Name>BuildTrackerWeb</Name>
     </ProjectReference>
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{2ECA2FCF-18E2-4691-8EBD-62EF704D6876}</Project>
