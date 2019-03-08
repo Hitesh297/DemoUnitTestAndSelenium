@@ -7,42 +7,15 @@ pipeline {
 			
 			try{
 			
-				def prevCommit = powershell(returnStdout: true, script: 'Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"');
 				
-				echo "${prevCommit}"
-				echo "${prevCommit.Content}"
-			
-			
-			  def test = powershell(returnStdout: true, script: '(git log -4)');
-			  echo ("${test}")
-			
                powershell('''
-				$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 				
 				
-				$counter = 0
-				do{
-					if($Response.status -eq 200){
-					break
-					}elseif($Response.status){
-						throw $_
-					}
-					Start-Sleep -s 2
-					}while($true -and ($counter++ -lt 10))
+				 Write-Output (git log 33304265616576d3f4846479e0ce95419e262bc2...9b0d3111f560f5bf0541627d9c68f0589f8bb640)
+)
 				
 				
 				
-				
-				Write-Output $Response
-			   $PreviousDeployCommit = $Response.Content
-			   $CurrentCommit = "`"$env:GIT_COMMIT`""
-			   Write-Output $PreviousDeployCommit
-				Write-Output $CurrentCommit
-				Write-Output (git log -4)
-			   Write-Output (git log --pretty=format:'%s' $PreviousDeployCommit...$CurrentCommit)
-			   $Comments = (git log --pretty=format:'%s' $PreviousDeployCommit...$env:GIT_COMMIT) 
-				
-				Write-Output "Comments : $Comments"
 				
 				
 				$env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
