@@ -1,4 +1,4 @@
-List<String> StorysIncluded = []
+Set<String> StorysIncluded = new HashSet<String>();
 pipeline { 
     agent { label "master" }
     stages {
