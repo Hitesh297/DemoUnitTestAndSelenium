@@ -49,10 +49,9 @@ pipeline {
 				}
 				else
 				{
-				echo "No Story Found, All test cases will be executed"
+				echo "No Story Id Found in Commit Message : ${item}"
 				}
 				
-				echo "${ComArray}"
 				}
 			
 				
