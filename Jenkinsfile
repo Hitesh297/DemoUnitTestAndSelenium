@@ -42,7 +42,7 @@ pipeline {
 			echo "${CommitId}"
 			env.PreviousDeployCommit = CommitId.trim()
 			
-			def CommitMessages = powershell(returnStdout: true, script: '''
+			env.CommitMessages = powershell(returnStdout: true, script: '''
 			$ComString = "$env:PreviousDeployCommit...$env:GIT_COMMIT"
 			git log --pretty=format:'%s' $ComString
 			''')
@@ -123,13 +123,9 @@ pipeline {
                powershell('''
 			   $StoriesTested = "'''+StoriesTested+'''"
 			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
-			   $Comments = (git log -4 --pretty=format:'%s')
-			   foreach ( $item in $Comments ) { $stringComments = "$stringComments,$item" }
-			   Write-Output $stringComments
-			   Write-Output $StoriesTested
 			   
 			   $params = @{"CommitVersion"=$CommitVersion;
-						"Comments"=$stringComments;
+						"Comments"=$env:CommitMessages;
 						"Server"="yyy";
 						"StoriesIncluded" = $StoriesTested;
 						}
