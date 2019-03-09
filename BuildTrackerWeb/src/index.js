@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import BuildDisplay from './Containers/BuildDisplay';
+import Dashboard from './Containers/Dashboard';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
@@ -12,8 +14,10 @@ const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 class App extends Component {
     render() {
         return (
-            
-            <BuildDisplay />
+            <div >
+                <Dashboard />
+                <BuildDisplay />
+            </div>
             );
     }
 }

@@ -13,5 +13,10 @@ namespace BuildTrackerWeb.Controllers
         {
             return View();
         }
+
+        public ActionResult Dash()
+        {
+            return View();
+        }
     }
 }
