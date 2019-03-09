@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchBuilds } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import ReactTable from "react-table";
+import matchSorter from 'match-sorter'
 import "react-table/react-table.css";
 
 
@@ -19,12 +20,18 @@ class BuildDisplay extends Component {
         const data = this.props.builds;
         const columns = [{
             Header: 'CommitVersion',
-            accessor: 'CommitVersion'
+            accessor: 'CommitVersion',
+            width:350
         },
             {
                 Header: 'Comments',
                 accessor: 'Comments',
-                style: { 'whiteSpace': 'unset' }
+                style: { 'whiteSpace': 'unset' },
+                filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["Comments"] }),
+                filterAll: true,
+                width:450
+                
             },
             {
                 Header: 'DeployedOn',
@@ -32,11 +39,15 @@ class BuildDisplay extends Component {
             },
             {
                 Header: 'Server',
-                accessor: 'Server' // String-based value accessors!
+                accessor: 'Server',
+                width: 150
             },
             {
                 Header: 'StoriesIncluded',
-                accessor: 'StoriesIncluded' // String-based value accessors!
+                accessor: 'StoriesIncluded',
+                filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["StoriesIncluded"] }),
+                filterAll: true
             }]
         console.log("test",this.props.builds);
         return (
