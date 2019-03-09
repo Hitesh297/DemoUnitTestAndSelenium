@@ -15,7 +15,8 @@ pipeline {
 			env.PreviousDeployCommit = CommitId.trim()
 			
 			def CommitMessages = powershell(returnStdout: true, script: '''
-			git log $env:PreviousDeployCommit...$env:GIT_COMMIT
+			$ComString = "$env:PreviousDeployCommit...$env:GIT_COMMIT"
+			git log $ComString
 			''')
 				echo "${CommitMessages}"
 			
