@@ -8,12 +8,15 @@ pipeline {
 			try{
 			
 			def CommitId = powershell(returnStdout: true, script: '''
-        $Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
-		Write-Output $Response.Content
-    ''')
+			$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
+			Write-Output $Response.Content
+			''')
 			echo "${CommitId}"
 			env.PreviousDeployCommit = CommitId.trim()
-				List<String> CommitMessages = sh(returnStdout: true, script: "git log ${env.PreviousDeployCommit}...${env.GIT_COMMIT}").split()
+			
+			def CommitMessages = powershell(returnStdout: true, script: '''
+			git log $env:PreviousDeployCommit...$env:GIT_COMMIT"
+			''')
 				echo "${CommitMessages}"
 			
 				
