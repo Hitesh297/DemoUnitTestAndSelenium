@@ -27,7 +27,7 @@ pipeline {
 				for(item in CommitList)
 				{
 				
-				def test = item.split('\\.')
+				def test = item.split('/')
 				echo "${test}"
 				}
 			
