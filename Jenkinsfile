@@ -55,7 +55,13 @@ pipeline {
 				
 				}
 				echo "Stories to be tested : ${StorysIncluded}"
-			
+				
+				String TestCriteria = ''
+				for(story in StorysIncluded)
+				{
+					TestCriteria = TestCriteria + "TestCategory=${storyID}|"
+				}
+				echo "${TestCriteria}"
 				
                powershell('''
 				
