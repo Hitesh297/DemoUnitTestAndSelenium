@@ -7,6 +7,8 @@ pipeline {
 			
 			try{
 			
+			sh 'Get-ChildItem -Path "${env.WORKSPACE}" -Include * | remove-Item -recurse -Force'
+			
 			def CommitId = powershell(returnStdout: true, script: '''
 			$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
 			Write-Output $Response.Content
