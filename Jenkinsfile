@@ -36,7 +36,7 @@ pipeline {
 						if(StorySplit[-1].isNumber())
 						{
 						echo "Valid Story ID"
-						StorysIncluded.add(StorySplit[-1])
+						StorysIncluded.add(storyId)
 						}
 						else
 						{
