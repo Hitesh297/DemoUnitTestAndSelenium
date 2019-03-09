@@ -16,9 +16,11 @@ pipeline {
 			
 			def CommitMessages = powershell(returnStdout: true, script: '''
 			$ComString = "$env:PreviousDeployCommit...$env:GIT_COMMIT"
-			git log $ComString
+			git log --pretty=format:'%s' $ComString
 			''')
-				echo "${CommitMessages}"
+			
+			List<String> sourceChanged = "${CommitMessages}".split()
+				echo "${sourceChanged}"
 			
 				
                powershell('''
