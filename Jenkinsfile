@@ -7,7 +7,7 @@ pipeline {
 			
 			try{
 			
-			sh 'Get-ChildItem -Path "${env.WORKSPACE}" -Include * | remove-Item -recurse -Force'
+			
 			
 			def CommitId = powershell(returnStdout: true, script: '''
 			$Response = Invoke-WebRequest -Uri "http://localhost/TrackerService/GetPreviousDeployCommit"
@@ -136,6 +136,22 @@ pipeline {
 			
 			   ''')
             }
+        }
+		
+		stage('Cleanup') {
+			steps{
+				script{
+				
+				}
+			}
+		}
+    }
+	post {
+        always {
+            sh 'Get-ChildItem -Path "${env.WORKSPACE}" -Include * | remove-Item -recurse -Force'
+        }
+        failure {
+            echo 'The Pipeline failed :('
         }
     }
 }
