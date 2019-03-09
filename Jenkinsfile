@@ -23,7 +23,7 @@ pipeline {
 			
 			List<String> CommitList = "${CommitMessages}".split('\n')
 				echo "Commit Messages : ${CommitList}"
-				
+			List<String> StorysIncluded = []	
 				for(item in CommitList)
 				{
 				def ComArray = item.split('/')
@@ -36,6 +36,7 @@ pipeline {
 						if(StorySplit[-1].isNumber())
 						{
 						echo "Valid Story ID"
+						StorysIncluded.add(StorySplit[-1])
 						}
 						else
 						{
@@ -53,6 +54,7 @@ pipeline {
 				}
 				
 				}
+				echo "Stories to be tested : ${StorysIncluded}"
 			
 				
                powershell('''
