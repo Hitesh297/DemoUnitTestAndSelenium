@@ -26,7 +26,9 @@ pipeline {
 				
 				for(item in CommitList)
 				{
-				echo "${item.split('.')}"
+				def items = item.split('.')
+				echo "${items}"
+				echo items.last()
 				}
 			
 				
