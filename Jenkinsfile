@@ -48,7 +48,8 @@ pipeline {
 			
 			List<String> CommitList = "${CommitMessages}".split('\n')
 				echo "Commit Messages : ${CommitList}"
-			List<String> StorysIncluded = []	
+			List<String> StorysIncluded = []
+			List<String> TestCriterias = []
 				for(item in CommitList)
 				{
 				def ComArray = item.split('/')
@@ -62,6 +63,7 @@ pipeline {
 						{
 						echo "Valid Story ID"
 						StorysIncluded.add(storyId)
+						TestCriterias.add("TestCategory=${storyId}")
 						}
 						else
 						{
@@ -81,11 +83,7 @@ pipeline {
 				}
 				echo "Stories to be tested : ${StorysIncluded}"
 				
-				env.TestCriteria = ''
-				for(story in StorysIncluded)
-				{
-					TestCriteria = TestCriteria + "TestCategory=${story}|"
-				}
+				env.TestCriteria = TestCriterias.join('|')
 				echo "${TestCriteria}"
 				
 					try{
