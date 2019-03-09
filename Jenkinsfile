@@ -26,8 +26,31 @@ pipeline {
 				
 				for(item in CommitList)
 				{
-				def ComArray = item.split('/')[-1]
-				
+				def ComArray = item.split('/')
+				if(ComArray.length > 1)
+				{
+					def storyId = ComArray[-1]
+					if(storyId.split('-').length > 1)
+					{
+					def StorySplit = storyId.split('-')
+						if(StorySplit[-1].isNumber())
+						{
+						echo "Valid Story ID"
+						}
+						else
+						{
+						echo "Invalid Story Id"
+						}
+					}
+					else
+					{
+					echo "Invalid StoryId"
+					}
+				}
+				else
+				{
+				echo "No Story Found, All test cases will be executed"
+				}
 				
 				echo "${ComArray}"
 				}
