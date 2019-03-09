@@ -19,8 +19,13 @@ pipeline {
 			git log --pretty=format:'%s' $ComString
 			''')
 			
-			List<String> sourceChanged = "${CommitMessages}".split()
-				echo "${sourceChanged}"
+			List<String> CommitList = "${CommitMessages}".split()
+				echo "${CommitList}"
+				
+				for(item in CommitList)
+				{
+				echo item('.')[-1]
+				}
 			
 				
                powershell('''
