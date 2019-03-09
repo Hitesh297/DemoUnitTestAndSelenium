@@ -81,7 +81,7 @@ pipeline {
 				}
 				echo "Stories to be tested : ${StorysIncluded}"
 				
-				String env.TestCriteria = ''
+				env.TestCriteria = ''
 				for(story in StorysIncluded)
 				{
 					TestCriteria = TestCriteria + "TestCategory=${story}|"
