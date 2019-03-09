@@ -141,7 +141,7 @@ pipeline {
 		stage('Cleanup') {
 			steps{
 				script{
-				
+				echo "Cleanup"
 				}
 			}
 		}
