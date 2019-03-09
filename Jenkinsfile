@@ -7,7 +7,7 @@ pipeline {
 			
 			try{
 			
-				
+				echo "${env.WORKSPACE}"
                powershell('''
 				
 				$env:WORKSPACE = $env:WORKSPACE.Replace('\\', '\\\\')
@@ -15,17 +15,16 @@ pipeline {
 				$Results = "'C:\\Program Files (x86)\\Jenkins\\workspace\\TestPipeline\\result'"
 				New-Item -Path "$env:WORKSPACE" -Name "result" -ItemType "directory"
 				New-Item -Path "$env:WORKSPACE" -Name "CodeCoverage" -ItemType "directory"
-				
-				
+								
 			   $SolutionPath = "$env:WORKSPACE\\Calculate.sln"
 			   $TestPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe"
 			   Write-Output "Solution Path: $SolutionPath"
 			   Write-Output "Publish Profile Path : $PublishProfile"
 			   nuget restore $SolutionPath -source http://localhost:8081/artifactory/api/nuget/nuget
 			   & 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe' $SolutionPath /p:PublishProfile=CustomProfile.pubxml /p:DeployOnBuild=true /p:Configuration=release
-			   
-			   
 			   ''')
+			   
+			   echo "${env.WORKSPACE}"
 			   }
 			   catch(Exception err)
 			   {
