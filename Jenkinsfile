@@ -26,9 +26,10 @@ pipeline {
 				
 				for(item in CommitList)
 				{
+				def ComArray = item.split('/')[-1]
 				
-				def test = item.split('/')
-				echo "${test}"
+				
+				echo "${ComArray}"
 				}
 			
 				
