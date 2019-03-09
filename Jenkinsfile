@@ -1,3 +1,4 @@
+List<String> StorysIncluded = []
 pipeline { 
     agent { label "master" }
     stages {
@@ -48,7 +49,7 @@ pipeline {
 			
 			List<String> CommitList = "${CommitMessages}".split('\n')
 				echo "Commit Messages : ${CommitList}"
-			List<String> StorysIncluded = []
+			
 			List<String> TestCriterias = []
 				for(item in CommitList)
 				{
