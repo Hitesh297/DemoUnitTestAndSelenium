@@ -21,7 +21,7 @@ pipeline {
 			git log --pretty=format:'%s' $ComString
 			''')
 			
-			List<String> CommitList = "${CommitMessages}".split()
+			List<String> CommitList = "${CommitMessages}".split('\n')
 				echo "Commit Messages : ${CommitList}"
 				
 				for(item in CommitList)
