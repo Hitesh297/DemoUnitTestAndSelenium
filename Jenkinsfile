@@ -141,23 +141,6 @@ pipeline {
             }
         }
 		
-		stage('Cleanup') {
-			steps{
-				script{
-				echo "Cleanup"
-				}
-			}
-		}
-    }
-	post {
-        always {
-			script{
-            sh 'Get-ChildItem -Path "${env.WORKSPACE}" -Include * | remove-Item -recurse -Force'
-			}
-        }
-        failure {
-            echo 'The Pipeline failed :('
-        }
     }
 }
 
