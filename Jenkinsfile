@@ -59,7 +59,7 @@ pipeline {
 				String TestCriteria = ''
 				for(story in StorysIncluded)
 				{
-					TestCriteria = TestCriteria + "TestCategory=${storyID}|"
+					TestCriteria = TestCriteria + "TestCategory=${story}|"
 				}
 				echo "${TestCriteria}"
 				
