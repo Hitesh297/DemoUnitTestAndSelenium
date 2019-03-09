@@ -39,7 +39,7 @@ pipeline {
 				script{
 				env.StorysTested = ''
 					try{
-               bat 'C:\\Program Files (x86)\\Jenkins\\workspace\\TestPipeline\\test.ps1'
+               bat 'test.ps1'
 			   
 			   echo " From Grrovy : ${env.StorysTested}"
 			   
