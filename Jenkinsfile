@@ -116,6 +116,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+			script{
 				def StoriesTested = StorysIncluded.join('\n')
 				echo "${StoriesTested}"
                powershell('''
@@ -139,6 +140,7 @@ pipeline {
 				Write-Output "Deploy test"
 			
 			   ''')
+			   }
             }
         }
 		
