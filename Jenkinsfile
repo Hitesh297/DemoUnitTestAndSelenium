@@ -102,8 +102,6 @@ pipeline {
 			   & 'packages\\ReportGenerator.4.0.14\\tools\\net47\\ReportGenerator.exe' -reports:"CodeCoverage\\*.xml" -targetdir:"CodeCoverage\"
 			   ''')
 			   
-			   echo " From Grrovy : ${env.StorysTested}"
-			   
 			   step([$class: 'MSTestPublisher', testResultsFile:"result/*.trx", failOnError: true, keepLongStdio: true])
 			   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "CodeCoverage", reportFiles: 'index.htm', reportName: "CodeCoverage"])
 				}
@@ -118,17 +116,20 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+				def StoriesTested = StorysIncluded.join('\n')
+				echo "${StoriesTested}"
                powershell('''
+			   $StoriesTested = "'''+StoriesTested+'''"
 			   $CommitVersion = "'''+env.GIT_COMMIT+'''"
 			   $Comments = (git log -4 --pretty=format:'%s')
 			   foreach ( $item in $Comments ) { $stringComments = "$stringComments,$item" }
 			   Write-Output $stringComments
-			   Write-Output $env:StorysTested
+			   Write-Output $StoriesTested
 			   
 			   $params = @{"CommitVersion"=$CommitVersion;
 						"Comments"=$stringComments;
 						"Server"="yyy";
-						"StoriesIncluded" = $env:StorysTested;
+						"StoriesIncluded" = $StoriesTested;
 						}
 				
 				Write-Output $params|ConvertTo-Json
