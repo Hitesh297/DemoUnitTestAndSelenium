@@ -27,7 +27,7 @@ pipeline {
 				for(item in CommitList)
 				{
 				
-				echo item
+				echo "${item}".split('.')
 				}
 			
 				
