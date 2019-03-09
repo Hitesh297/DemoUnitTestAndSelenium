@@ -22,7 +22,7 @@ pipeline {
 			''')
 			
 			List<String> CommitList = "${CommitMessages}".split()
-				echo "${CommitList}"
+				echo "Commit Messages : ${CommitList}"
 				
 				for(item in CommitList)
 				{
