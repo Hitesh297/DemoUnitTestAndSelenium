@@ -64,7 +64,7 @@ pipeline {
 					Write-Output "$item not a valid story id"
 					}
 				}
-				
+				$env:StorysTested = "Test Value"
 				Write-Output "Stories tested : $env:StorysTested"
 				
 				if ($filterCriteria)
