@@ -42,6 +42,39 @@ namespace BuildTrackerAPI.Controllers
 
         }
 
+        [HttpGet, Route("GetCompare/{server1}/{server2}")]
+        public HttpResponseMessage GetPreviousDeployCommit(string server1, string server2)
+        {
+
+            if (!File.Exists(_FilePath))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File Not Found at " + _FilePath);
+            }
+            string initialJson = File.ReadAllText(_FilePath);
+            List<BuildInfo> buildInfos = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
+            List<string> appList = buildInfos.Select(x => x.AppName).Distinct().ToList();
+            List<BuidCompare> buidCompares = new List<BuidCompare>();
+            BuildInfo server1Data = new BuildInfo();
+            BuildInfo server2Data = new BuildInfo();
+            foreach (var app in appList)
+            {
+                BuidCompare compareDetails = new BuidCompare() { AppName=app };
+                server1Data = buildInfos.Where(x => x.AppName == app && x.Server == server1).OrderBy(x => Convert.ToDateTime(x.DeployedOn)).LastOrDefault();
+                server2Data = buildInfos.Where(x => x.AppName == app && x.Server == server2).OrderBy(x => Convert.ToDateTime(x.DeployedOn)).LastOrDefault();
+                compareDetails.Server1Commit = server1Data.CommitVersion;
+                compareDetails.Server1Name = server1Data.Server;
+                compareDetails.Server1DeployDate = server1Data.DeployedOn;
+                compareDetails.Server2Commit = server2Data.CommitVersion;
+                compareDetails.Server2Name = server2Data.Server;
+                compareDetails.Server2DeployDate = server2Data.DeployedOn;
+                buidCompares.Add(compareDetails);
+            }
+            
+            return Request.CreateResponse(buidCompares);
+
+
+        }
+
         // GET: api/Deployment/5
         public string Get(int id)
         {
@@ -95,5 +128,6 @@ namespace BuildTrackerAPI.Controllers
         public void Delete(int id)
         {
         }
+
     }
 }
