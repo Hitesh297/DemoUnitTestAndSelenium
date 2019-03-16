@@ -104,6 +104,7 @@
     <Content Include="src\index.js" />
     <Content Include="src\reducers\index.js" />
     <Content Include="src\reducers\reducer_builds.js" />
+    <Content Include="src\reducers\reducer_serverCompare.js" />
     <Content Include="webpack.config.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />

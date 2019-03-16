@@ -1,9 +1,11 @@
 ﻿import { combineReducers } from 'redux';
 import BuildReducer from './reducer_builds';
+import CompareReducer from './reducer_serverCompare';
 
 const rootReducer = combineReducers(
     {
-        builds: BuildReducer
+        builds: BuildReducer,
+        serverCompare: CompareReducer
     }
 );
 

@@ -42,7 +42,7 @@ namespace BuildTrackerAPI.Controllers
 
         }
 
-        [HttpGet, Route("GetCompare/{server1}/{server2}")]
+        [HttpGet, Route("api/Deployment/GetCompare/{server1}/{server2}")]
         public HttpResponseMessage GetPreviousDeployCommit(string server1, string server2)
         {
 
@@ -95,14 +95,14 @@ namespace BuildTrackerAPI.Controllers
                 buildDetails = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
             }
             value.DeployedOn = DateTime.Now.ToString();
-            setPriorDeployDetails(value);
+            SetPriorDeployDetails(value);
             buildDetails.Add(value);
             string jsonData = JsonConvert.SerializeObject(buildDetails);
             File.WriteAllText(_FilePath, jsonData);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        private void setPriorDeployDetails(BuildInfo value)
+        private void SetPriorDeployDetails(BuildInfo value)
         {
             string initialJson = File.ReadAllText(_FilePath);
             List<BuildInfo> buildInfos = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
