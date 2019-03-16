@@ -19,14 +19,14 @@ namespace BuildTrackerAPI.Controllers
 
             if (!File.Exists(_FilePath))
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound,"File Not Found at " + _FilePath);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File Not Found at " + _FilePath);
             }
             string initialJson = File.ReadAllText(_FilePath);
             return Request.CreateResponse(JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson));
-            
+
         }
 
-        [HttpGet,Route("GetPreviousDeployCommit")]
+        [HttpGet, Route("GetPreviousDeployCommit")]
         public HttpResponseMessage GetPreviousDeployCommit()
         {
 
@@ -57,16 +57,34 @@ namespace BuildTrackerAPI.Controllers
                 File.CreateText(_FilePath);
             }
             string initialJson = File.ReadAllText(_FilePath);
-            if (!string.IsNullOrWhiteSpace(initialJson)) {
+            if (!string.IsNullOrWhiteSpace(initialJson))
+            {
                 buildDetails = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
             }
             value.DeployedOn = DateTime.Now.ToString();
+            setPriorDeployDetails(value);
             buildDetails.Add(value);
             string jsonData = JsonConvert.SerializeObject(buildDetails);
             File.WriteAllText(_FilePath, jsonData);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-    
+
+        private void setPriorDeployDetails(BuildInfo value)
+        {
+            string initialJson = File.ReadAllText(_FilePath);
+            List<BuildInfo> buildInfos = JsonConvert.DeserializeObject<List<BuildInfo>>(initialJson);
+            BuildInfo priorDeploy = new BuildInfo();
+            if (buildInfos != null)
+            {
+                priorDeploy = buildInfos.Where(x => x.AppName == value.AppName && x.Server == x.Server).OrderBy(x => Convert.ToDateTime(x.DeployedOn)).ToList().LastOrDefault();
+            }
+            if (priorDeploy != null)
+            {
+                value.PriorCommitVersion = priorDeploy.CommitVersion;
+                value.PriorDeployDate = priorDeploy.DeployedOn;
+            }
+        }
+
 
         // PUT: api/Deployment/5
         public void Put(int id, [FromBody]string value)
