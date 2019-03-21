@@ -53,16 +53,20 @@ pipeline {
 			List<String> TestCriterias = []
 				for(item in CommitList)
 				{
-				def ComArray = item.split('/')
+				def ComArray = item.split('-')
 				if(ComArray.length > 1)
 				{
-					def storyId = ComArray[-1]
-					if(storyId.split('-').length > 1)
-					{
-					def StorySplit = storyId.split('-')
-						if(StorySplit[-1].isNumber())
+				
+				
+				
+					def storyAlpha = ComArray[-1]
+					def storyNumber = ComArray[-2]
+					
+					
+						if(ComArray[-1].isNumber())
 						{
 						echo "Valid Story ID"
+						def storyId = "${storyAlpha}-${storyNumber}"
 						StorysIncluded.add(storyId)
 						TestCriterias.add("TestCategory=${storyId}")
 						}
@@ -75,6 +79,12 @@ pipeline {
 					{
 					echo "Invalid StoryId"
 					}
+					
+					
+					
+					
+					
+					
 				}
 				else
 				{

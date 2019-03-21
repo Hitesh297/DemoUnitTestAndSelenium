@@ -52,29 +52,36 @@ class BuildDisplay extends Component {
             accessor: 'AppName'
         },
         {
-            Header: 'Server1Name',
-            accessor: 'Server1Name'
-        },
-        {
-            Header: 'Server1Commit',
-            accessor: 'Server1Commit'
-        },
-        {
-            Header: 'Server1DeployDate',
-            accessor: 'Server1DeployDate'
-        },
-        {
-            Header: 'Server2Name',
-            accessor: 'Server2Name'
-        },
-        {
-            Header: 'Server2Commit',
-            accessor: 'Server2Commit'
-        },
-        {
-            Header: 'Server2DeployDate',
-            accessor: 'Server2DeployDate'
-        }]
+            Header: this.state.server1,
+            columns: [{
+
+                Header: 'Server1Name',
+                accessor: 'Server1Name'
+            },
+            {
+                Header: 'Server1Commit',
+                accessor: 'Server1Commit'
+            },
+            {
+                Header: 'Server1DeployDate',
+                accessor: 'Server1DeployDate'
+            }]
+            },
+            {
+                Header: this.state.server2,
+                columns: [{
+                    Header: 'Server2Name',
+                    accessor: 'Server2Name'
+                },
+                {
+                    Header: 'Server2Commit',
+                    accessor: 'Server2Commit'
+                },
+                {
+                    Header: 'Server2DeployDate',
+                    accessor: 'Server2DeployDate'
+                }]
+            }]
         const buildColumns = [{
             Header: 'AppName',
             accessor: 'AppName'
