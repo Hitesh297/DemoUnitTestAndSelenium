@@ -86,12 +86,7 @@ pipeline {
 					
 					
 				}
-				else
-				{
-				echo "No Story Id Found in Commit Message : ${item}"
-				}
 				
-				}
 				echo "Stories to be tested : ${StorysIncluded}"
 				
 				env.TestCriteria = TestCriterias.join('|')
