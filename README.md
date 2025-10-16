@@ -3,7 +3,4 @@ notes:
 get commits between range
 git log --pretty=format:'%s%n[Comments]->%b%n' --merges a7871939b0df352ca42f7fab261e3a8529534430...41c7e000720f533df9dd60e6df28103ef7d4efa7
 
-https://claude.ai/share/0bc68a66-74f1-4531-ab74-436d2d016fd4
-
-
 https://claude.ai/share/018466b4-ec5e-4613-b6ca-88a26a365a45
