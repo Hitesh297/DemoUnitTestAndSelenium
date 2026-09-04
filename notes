@@ -1,0 +1,58 @@
+Sure. The work items are essentially the pieces a developer needs to build, test, and deploy the service. Here’s what each one means in the context of your .pre → .rcg → Azure OCR → XML → .don workflow.
+
+Work Item	What the developer will do	Estimate
+1. Requirements review + technical design	Confirm the .pre file structure, image formats, Azure OCR API, required XML format, input/output locations, error behaviour, concurrency, and security. Create the basic component/processing design before coding.	1–2 days
+2. .NET Worker / Windows Service setup	Create the .NET Worker Service project, configure it to run continuously as a Windows Service, add dependency injection/configuration, and establish the basic service lifecycle (start/stop).	1 day
+3. Folder polling + file state handling	Continuously check the configured folder for .pre files. Safely rename .pre → .rcg when processing starts and .rcg → .don after successful completion. Handle locked files and multiple files arriving during the day.	1–2 days
+4. .pre parsing + image validation	Open the .rcg file, extract the image paths, verify that the referenced images exist and can be read, ignore invalid/blank entries as appropriate, and identify unsupported or missing files.	1 day
+5. Azure OCR integration	Build the Azure client, authenticate securely, read each image and submit it to Azure OCR, wait for processing if the API is asynchronous, retrieve the OCR response, and handle Azure errors/timeouts/throttling.	2–3 days
+6. XML generation + output	Convert the OCR response into the required XML structure and save it to the configured location. Ideally write Batch001.xml.tmp first and then rename it to Batch001.xml so downstream systems never see a partially written XML file.	1–2 days
+7. Retry/error handling + recovery	Handle temporary Azure/network/filesystem failures. Implement retries and decide what happens to failed .rcg files. Also handle a service/server restart while a batch is in progress and avoid unnecessary duplicate OCR calls.	1–2 days
+8. Logging + configuration	Add logs showing which batch/image is being processed, Azure success/failure, XML creation, retries, and final status. Move folder paths, polling interval, Azure endpoint, retry count, etc. into configuration instead of hard-coding them.	1 day
+9. Unit testing	Write automated tests for individual pieces such as parsing .pre files, file-extension transitions, XML generation, validation, retry decisions, and failure scenarios. Azure calls can be mocked for these tests.	1–2 days
+10. Integration testing with Azure	Run the actual service against a non-production Azure OCR resource using real sample images. Verify Azure responses, XML output, multiple images, bad images, timeouts, throttling, and other end-to-end scenarios.	1–2 days
+11. Deployment/configuration support	Install and configure the service in the target DEV/QA/Production environment, configure folders and permissions, Azure credentials/Managed Identity where applicable, and verify that it starts and processes files correctly.	1 day
+12. Documentation + handover	Document installation, configuration, normal processing, logs, troubleshooting, failed-file recovery, restart procedure, and how support teams can determine whether a batch succeeded or failed.	0.5–1 day
+
+How they fit together
+
+The actual development flow is roughly:
+
+Service starts
+     │
+     ▼
+Monitor configured folder
+     │
+     ▼
+Find Batch001.pre
+     │
+     ▼
+Rename .pre → .rcg
+     │
+     ▼
+Read image paths
+     │
+     ▼
+Validate images
+     │
+     ▼
+Send images to Azure OCR
+     │
+     ▼
+Receive OCR response
+     │
+     ▼
+Generate XML
+     │
+     ▼
+Save Batch001.xml.tmp
+     │
+     ▼
+Rename to Batch001.xml
+     │
+     ▼
+Rename .rcg → .don
+
+The 2–3 days for Azure integration and 1–2 days for error/recovery handling are important parts of the estimate. The happy-path code itself is relatively straightforward; production reliability—timeouts, Azure 429/5xx responses, locked files, service crashes, partially written XML, duplicate processing—is where much of the additional effort comes from.
+
+So when presenting the ROM, I would describe 13–19 days as the estimate for a production-ready service, rather than just the basic OCR proof of concept.
